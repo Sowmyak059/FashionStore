@@ -5,7 +5,7 @@
 }
 
 <h1>Products</h1>
-@if (User.IsInRole("Admins, Owners"))
+@if (User.IsInRole("Admins"))
 {
     <p>
         <a asp-action="Create">Create New</a>
@@ -26,7 +26,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ImageUrl)
             </th>
-            @if (User.IsInRole("Admins, Owners"))
+            @if (User.IsInRole("Admins"))
             {
                 <th>
                     @Html.DisplayNameFor(model => model.Category)
@@ -50,7 +50,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ImageUrl)
             </td>
-            @if (User.IsInRole("Admins, Owners"))
+            @if (User.IsInRole("Admins"))
             {
                 <td>
                     @Html.DisplayFor(modelItem => item.Category.CategoryID)

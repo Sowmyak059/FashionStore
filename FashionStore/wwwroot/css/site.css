@@ -21,54 +21,35 @@ body {
   margin-bottom: 60px;
 }
 
-.category {
-    margin-bottom: 20px;
+.men-page {
+    display: flex;
+}
+
+.categories {
+    width: 25%;
+    padding: 10px;
+    border-right: 2px solid #ccc;
 }
 
 .products {
-    display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
-    justify-content: space-between; /* Distribute items evenly */
+    width: 75%;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust the minmax value as needed */
+    gap: 20px;
 }
 
 .product {
-    width: 16%; /* Adjust width to fit 6 items per row */
     box-sizing: border-box;
     border: 1px solid #ccc;
     padding: 10px;
-    margin-bottom: 20px;
     text-align: center;
-    margin-right: 1%; /* Add margin to space out items */
 }
 
-.product:nth-child(6n) {
-    margin-right: 0; /* Remove right margin for every 6th item */
-}
-
-.product img {
-    max-width: 100%;
-    height: auto;
-}
-
-.pagination {
-    text-align: center;
-    margin-top: 20px;
-}
-
-    .pagination a {
-        margin: 0 5px;
-        padding: 8px 16px;
-        text-decoration: none;
-        border: 1px solid #ccc;
-        color: #333;
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    .categories {
+        margin-left: -80px; /* Adjust this value for medium screens */
     }
-
-        .pagination a.active {
-            background-color: #333;
-            color: #fff;
-        }
-
-        .pagination a:hover {
-            background-color: #ddd;
-        }
+}
 

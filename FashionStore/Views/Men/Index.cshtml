@@ -1,22 +1,23 @@
-﻿@model IEnumerable<FashionStore.Models.MainCategory>
+﻿@model FashionStore.Models.MainCategory
+
 @{
     ViewData["Title"] = "Men";
 }
 
-@foreach (var mainCategory in Model)
-{
-    <div class="category">
-         <ul>
-            @foreach (var categoryHeaders in mainCategory.CategoryHeaders)
+<div class="men-page">
+    <div class="categories">
+        <h2>Men</h2>
+        <ul>
+            @foreach (var categoryHeader in Model.CategoryHeaders)
             {
                 <li>
-                    <h3>@categoryHeaders.Name</h3>
+                    <h3>@categoryHeader.Name</h3>
                     <ul>
-                        @foreach (var products in categoryHeaders.Categories)
+                        @foreach (var category in categoryHeader.Categories)
                         {
                             <li>
-                                <a href="@Url.Action("Products", new { categoryID = products.CategoryID })">
-                                    @products.Name
+                                <a href="@Url.Action("Products", new { categoryID = category.CategoryID })">
+                                    @category.Name
                                 </a>
                             </li>
                         }
@@ -25,4 +26,65 @@
             }
         </ul>
     </div>
-}
+    <div class="products">
+        @foreach (var categoryHeader in Model.CategoryHeaders)
+        {
+            @foreach (var category in categoryHeader.Categories)
+            {
+                @foreach (var product in category.Products)
+                {
+                    <div class="product">
+                        <img src="@product.ImageUrl" alt="@product.Name" />
+                        <h3>@product.Name</h3>
+                        <p>@product.Description</p>
+                        <p>@product.Price</p>
+                        <div class="product-actions">
+                            <button onclick="addToCart(@product.ProductID)">Add to Cart</button>
+                            <button onclick="toggleWishlist(@product.ProductID)" id="wishlist-btn-@product.ProductID">
+                                <span id="wishlist-icon-@product.ProductID" class="wishlist-icon">&#x2661;</span>
+                            </button>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>
+
+<script>
+    function addToCart(productId) {
+        fetch('/Men/AddToCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId: productId })
+        }).then(response => {
+            if (response.ok) {
+                alert('Product added to cart!');
+            }
+        });
+    }
+
+    function toggleWishlist(productId) {
+        fetch('/Men/AddToWishlist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId: productId })
+        }).then(response => {
+            if (response.ok) {
+                const icon = document.getElementById(`wishlist-icon-${productId}`);
+                if (icon.innerHTML === '&#x2661;') {
+                    icon.innerHTML = '&#x2665;';
+                    icon.style.color = 'red';
+                } else {
+                    icon.innerHTML = '&#x2661;';
+                    icon.style.color = 'black';
+                }
+                alert('Product added to wishlist!');
+            }
+        });
+    }
+</script>

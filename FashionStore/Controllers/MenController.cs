@@ -1,4 +1,5 @@
 ﻿using FashionStore.Data;
+using FashionStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,14 +16,37 @@ namespace e_CommerceStore.Controllers
 
         public IActionResult Index()
         {
-            var mainCategories = _context.MainCategory.Include(mc => mc.CategoryHeaders).ThenInclude(ch => ch.Categories).Where(mc => mc.MainCategoryID == 1).ToList();
-            return View(mainCategories);
+            var menCategory = _context.MainCategory
+                .Include(mc => mc.CategoryHeaders)
+                .ThenInclude(ch => ch.Categories)
+                .ThenInclude(c => c.Products)
+                .FirstOrDefault(mc => mc.Name == "Men");
+
+            if (menCategory == null)
+            {
+                return NotFound();
+            }
+
+            return View(menCategory);
         }
 
         public IActionResult Products(int categoryID)
         {
+            var categoryHeaders = _context.CategoryHeader
+                .Include(ch => ch.Categories)
+                .ThenInclude(c => c.Products)
+                .Where(ch => ch.MainCategory.Name == "Men")
+                .ToList();
+
             var products = _context.Product.Where(p => p.CategoryID == categoryID).ToList();
-            return View(products);
+
+            var viewModel = new ProductsViewModel
+            {
+                CategoryHeaders = categoryHeaders,
+                Products = products
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]

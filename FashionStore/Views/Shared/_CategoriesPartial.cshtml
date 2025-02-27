@@ -1,0 +1,22 @@
+﻿@model IEnumerable<FashionStore.Models.CategoryHeader>
+
+<div class="categories">
+    <ul>
+        @foreach (var categoryHeader in Model)
+        {
+            <li>
+                <h3>@categoryHeader.Name</h3>
+                <ul>
+                    @foreach (var category in categoryHeader.Categories)
+                    {
+                        <li>
+                            <a href="@Url.Action("Products", new { categoryID = category.CategoryID })">
+                                @category.Name
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</div>

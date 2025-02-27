@@ -1,21 +1,40 @@
-﻿@model IEnumerable<FashionStore.Models.Product>
+﻿@model FashionStore.ViewModels.ProductsViewModel
 
-<div class="products">
-    @foreach (var product in Model)
-    {
-        <div class="product">
-            <img src="@product.ImageUrl" alt="@product.Name" />
-            <h3>@product.Name</h3>
-            <p>@product.Description</p>
-            <p>@product.Price</p>
-            <div class="product-actions">
-                <button onclick="addToCart(@product.ProductID)">Add to Cart</button>
-                <button onclick="toggleWishlist(@product.ProductID)" id="wishlist-btn-@product.ProductID">
-                    <span id="wishlist-icon-@product.ProductID" class="wishlist-icon">&#x2661;</span>
-                </button>
+<div class="men-page">
+    <div class="categories">
+        <h2>Categories</h2>
+        @foreach (var categoryHeader in Model.CategoryHeaders)
+        {
+            <h3>@categoryHeader.Name</h3>
+            <ul>
+                @foreach (var category in categoryHeader.Categories)
+                {
+                    <li>
+                        <a href="@Url.Action("Products", new { categoryID = category.CategoryID })">
+                            @category.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+    <div class="products">
+        @foreach (var product in Model.Products)
+        {
+            <div class="product">
+                <img src="@product.ImageUrl" alt="@product.Name" />
+                <h3>@product.Name</h3>
+                <p>@product.Description</p>
+                <p>@product.Price</p>
+                <div class="product-actions">
+                    <button onclick="addToCart(@product.ProductID)">Add to Cart</button>
+                    <button onclick="toggleWishlist(@product.ProductID)" id="wishlist-btn-@product.ProductID">
+                        <span id="wishlist-icon-@product.ProductID" class="wishlist-icon">&#x2661;</span>
+                    </button>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
 
 <script>
