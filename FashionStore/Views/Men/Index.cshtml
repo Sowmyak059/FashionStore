@@ -1,0 +1,28 @@
+﻿@model IEnumerable<FashionStore.Models.MainCategory>
+@{
+    ViewData["Title"] = "Men";
+}
+
+@foreach (var mainCategory in Model)
+{
+    <div class="category">
+         <ul>
+            @foreach (var categoryHeaders in mainCategory.CategoryHeaders)
+            {
+                <li>
+                    <h3>@categoryHeaders.Name</h3>
+                    <ul>
+                        @foreach (var products in categoryHeaders.Categories)
+                        {
+                            <li>
+                                <a href="@Url.Action("Products", new { categoryID = products.CategoryID })">
+                                    @products.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+}

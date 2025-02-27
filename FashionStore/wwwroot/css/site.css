@@ -1,0 +1,74 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.category {
+    margin-bottom: 20px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: space-between; /* Distribute items evenly */
+}
+
+.product {
+    width: 16%; /* Adjust width to fit 6 items per row */
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-right: 1%; /* Add margin to space out items */
+}
+
+.product:nth-child(6n) {
+    margin-right: 0; /* Remove right margin for every 6th item */
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .pagination a {
+        margin: 0 5px;
+        padding: 8px 16px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        color: #333;
+    }
+
+        .pagination a.active {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+
