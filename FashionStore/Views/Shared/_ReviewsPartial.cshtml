@@ -1,0 +1,37 @@
+﻿@model IEnumerable<FashionStore.Models.Review>
+
+<div class="reviews">
+    <h2>Reviews and Ratings</h2>
+    <div id="reviews-container">
+        @foreach (var review in Model)
+        {
+            <div class="review">
+                <p><strong>@review.ReviewerName</strong> (@review.ReviewDate.ToShortDateString()):</p>
+                <p>@review.Comment</p>
+                <p>Rating: @review.Rating/5</p>
+            </div>
+        }
+    </div>
+    <form id="review-form">
+        <input type="hidden" id="productId" value="@ViewBag.ProductID" />
+        <div>
+            <label for="reviewerName">Name:</label>
+            <input type="text" id="reviewerName" required />
+        </div>
+        <div>
+            <label for="comment">Comment:</label>
+            <textarea id="comment" required></textarea>
+        </div>
+        <div>
+            <label for="rating">Rating:</label>
+            <select id="rating" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <button type="submit">Submit Review</button>
+    </form>
+</div>

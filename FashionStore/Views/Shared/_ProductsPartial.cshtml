@@ -4,10 +4,12 @@
     @foreach (var product in Model)
     {
         <div class="product">
-            <img src="@product.ImageUrl" alt="@product.Name" />
-            <h3>@product.Name</h3>
-            <p>@product.Description</p>
-            <p>@product.Price</p>
+            <a href="@Url.Action("ProductDetails", "Men", new { productId = product.ProductID })">
+                <img src="@product.ImageUrl" alt="@product.Name" />
+                <h3>@product.Name</h3>
+                <p>@product.Description</p>
+                <p>@product.Price</p>
+            </a>
             <div class="product-actions">
                 <button onclick="addToCart(@product.ProductID)">Add to Cart</button>
                 <button onclick="toggleWishlist(@product.ProductID)" id="wishlist-btn-@product.ProductID">

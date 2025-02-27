@@ -1,0 +1,32 @@
+﻿@model FashionStore.Models.Product
+
+@{
+    ViewData["Title"] = Model.Name;
+    var categoryHeaders = ViewBag.CategoryHeaders as IEnumerable<FashionStore.Models.CategoryHeader>;
+}
+
+<div class="men-page">
+    @await Html.PartialAsync("_CategoriesPartial", categoryHeaders)
+    <div class="product-details">
+        <img src="@Model.ImageUrl" alt="@Model.Name" />
+        <h1>@Model.Name</h1>
+        <p>@Model.Description</p>
+        <p>Price: @Model.Price</p>
+        <div class="product-actions">
+            <button onclick="addToCart(@Model.ProductID)">Add to Cart</button>
+            <button onclick="toggleWishlist(@Model.ProductID)" id="wishlist-btn-@Model.ProductID">
+                <span id="wishlist-icon-@Model.ProductID" class="wishlist-icon">&#x2661;</span>
+            </button>
+        </div>
+        @await Html.PartialAsync("_ReviewsPartial", Model.Reviews)
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/men-scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadReviews(@Model.ProductID);
+        });
+    </script>
+}

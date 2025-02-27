@@ -49,6 +49,30 @@ namespace e_CommerceStore.Controllers
             return View(viewModel);
         }
 
+        public IActionResult ProductDetails(int productId)
+        {
+            var product = _context.Product
+                .Include(p => p.Category)
+                .ThenInclude(c => c.CategoryHeader)
+                .ThenInclude(ch => ch.MainCategory)
+                .FirstOrDefault(p => p.ProductID == productId);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var categoryHeaders = _context.CategoryHeader
+                .Include(ch => ch.Categories)
+                .ThenInclude(c => c.Products)
+                .Where(ch => ch.MainCategory.Name == "Men")
+                .ToList();
+
+            ViewBag.ProductID = productId;
+            ViewBag.CategoryHeaders = categoryHeaders;
+            return View(product);
+        }
+
         [HttpPost]
         public IActionResult AddToCart([FromBody] int productId)
         {
