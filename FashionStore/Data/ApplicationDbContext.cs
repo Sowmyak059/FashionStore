@@ -15,11 +15,6 @@ namespace FashionStore.Data
         public DbSet<FashionStore.Models.MainCategory> MainCategory { get; set; } = default!;
         public DbSet<FashionStore.Models.Product> Product { get; set; } = default!;
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            // Configure entity properties and relationships
-        }
+        public DbSet<FashionStore.Models.Review> Review { get; set; } = default!;
     }
 }
