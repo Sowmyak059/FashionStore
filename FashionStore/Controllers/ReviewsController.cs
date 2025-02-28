@@ -1,5 +1,6 @@
 ﻿using FashionStore.Data;
 using FashionStore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ namespace FashionStore.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] Review review)
         {
             //if (ModelState.IsValid)
