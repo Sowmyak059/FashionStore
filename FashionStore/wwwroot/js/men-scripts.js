@@ -56,7 +56,11 @@ function loadReviews(productId) {
                 reviewElement.innerHTML = `
                     <p><strong>${review.reviewerName}</strong> (${new Date(review.reviewDate).toLocaleDateString()}):</p>
                     <p>${review.comment}</p>
-                    <p>Rating: ${review.rating}/5</p>
+                    <p>
+                        Rating: 
+                        ${[...Array(5)].map((_, i) => i < review.rating ? '<span class="star gold">&#9733;</span>' : '<span class="star">&#9734;</span>').join('')}
+                    </p>
+                    <hr />
                 `;
                 container.appendChild(reviewElement);
             });
@@ -82,23 +86,17 @@ function submitReview() {
         })
     }).then(response => {
         if (response.ok) {
+            console.log('Review submitted successfully');
             loadReviews(productId);
             document.getElementById('review-form').reset();
         } else {
-            alert('Failed to submit review');
+            response.json().then(data => {
+                console.error('Failed to submit review:', data);
+                alert('Failed to submit review');
+            });
         }
+    }).catch(error => {
+        console.error('Error submitting review:', error);
+        alert('Failed to submit review');
     });
 }
-
-function getProductIdFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('productId');
-    return productId ? parseInt(productId, 10) : null;
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    const productId = getProductIdFromUrl();
-    if (productId) {
-        loadReviews(productId);
-    }
-});

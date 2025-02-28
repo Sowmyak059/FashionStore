@@ -1,37 +1,59 @@
 ﻿@model IEnumerable<FashionStore.Models.Review>
 
 <div class="reviews">
-    <h2>Reviews and Ratings</h2>
+    <h2>Customer Reviews and Ratings</h2>
     <div id="reviews-container">
         @foreach (var review in Model)
         {
             <div class="review">
                 <p><strong>@review.ReviewerName</strong> (@review.ReviewDate.ToShortDateString()):</p>
                 <p>@review.Comment</p>
-                <p>Rating: @review.Rating/5</p>
+                <p>
+                    Rating:
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (i <= review.Rating)
+                        {
+                            <span class="star gold">&#9733;</span>
+                        }
+                        else
+                        {
+                            <span class="star">&#9734;</span>
+                        }
+                    }
+                </p>
+                <hr />
             </div>
         }
     </div>
-    <form id="review-form">
-        <input type="hidden" id="productId" value="@ViewBag.ProductID" />
-        <div>
-            <label for="reviewerName">Name:</label>
-            <input type="text" id="reviewerName" required />
-        </div>
-        <div>
-            <label for="comment">Comment:</label>
-            <textarea id="comment" required></textarea>
-        </div>
-        <div>
-            <label for="rating">Rating:</label>
-            <select id="rating" required>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-        <button type="submit">Submit Review</button>
-    </form>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form id="review-form">
+            <h2>Write a Review</h2>
+            <input type="hidden" id="productId" value="@ViewBag.ProductID" />
+            <div class="form-group">
+                <label for="reviewerName">Name:</label>
+                <input type="text" id="reviewerName" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="comment">Comment:</label>
+                <textarea id="comment" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating:</label>
+                <select id="rating" class="form-control" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
+    }
+    else
+    {
+        <p>You must be logged in to submit a review.</p>
+    }
 </div>

@@ -20,3 +20,36 @@
         }
     </ul>
 </div>
+
+<style>
+    .men-page {
+        display: flex;
+        align-items: flex-start; /* Align categories & products on the same row */
+        gap: 20px; /* Space between categories and product details */
+    }
+
+    .categories {
+        width: 250px; /* Adjust as needed */
+        padding: 15px;
+        border-right: 2px solid #ccc;
+        background: #f8f8f8;
+        position: sticky; /* Keeps it fixed when scrolling */
+        top: 0;
+        margin-left:-80px;
+    }
+
+    .products {
+        width: 75%;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust the minmax value as needed */
+        gap: 20px;
+    }
+
+    .product {
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+    }
+</style>

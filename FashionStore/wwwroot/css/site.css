@@ -21,35 +21,68 @@ body {
   margin-bottom: 60px;
 }
 
-.men-page {
-    display: flex;
-}
-
-.categories {
-    width: 25%;
-    padding: 10px;
-    border-right: 2px solid #ccc;
-}
-
-.products {
-    width: 75%;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust the minmax value as needed */
-    gap: 20px;
-}
-
-.product {
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-}
-
-/* Media query for larger screens */
-@media (min-width: 768px) {
-    .categories {
-        margin-left: -80px; /* Adjust this value for medium screens */
+/* Media query for larger screens*/
+/*@media (max-width: 600px) {
+    .men-page {
+        flex-direction: column;
     }
+
+    .categories {
+        width: 100%;
+    }
+
+    .product-details-container {
+        width: 100%;
+    }
+}*/
+/*Reviews related style start*/
+
+.reviews {
+    margin-top: 20px;
 }
 
+.review {
+    margin-bottom: 20px;
+}
+
+.star {
+    font-size: 20px;
+    color: #ccc;
+}
+
+    .star.gold {
+        color: gold;
+    }
+
+hr {
+    border: 0;
+    height: 1px;
+    background: black;
+    margin: 20px 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+/*Reviews related style end*/
