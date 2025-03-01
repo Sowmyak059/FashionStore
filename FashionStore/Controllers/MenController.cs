@@ -1,10 +1,16 @@
 ﻿using FashionStore.Data;
+using FashionStore.Models;
 using FashionStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace e_CommerceStore.Controllers
 {
+    
     public class MenController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -71,34 +77,6 @@ namespace e_CommerceStore.Controllers
             ViewBag.ProductID = productId;
             ViewBag.CategoryHeaders = categoryHeaders;
             return View(product);
-        }
-
-        [HttpPost]
-        public IActionResult AddToCart([FromBody] int productId)
-        {
-            // Add logic to add the product to the cart
-            // For example, add the product to a session or database
-            return Ok();
-        }
-
-        [HttpPost]
-        public IActionResult AddToWishlist([FromBody] int productId)
-        {
-            // Add logic to add the product to the wishlist
-            // For example, add the product to a session or database
-            return Ok();
-        }
-
-        public IActionResult Cart()
-        {
-            // Retrieve cart items from session or database
-            return View();
-        }
-
-        public IActionResult Wishlist()
-        {
-            // Retrieve wishlist items from session or database
-            return View();
         }
     }
 }

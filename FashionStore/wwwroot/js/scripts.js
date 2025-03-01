@@ -1,5 +1,6 @@
-﻿function addToCart(productId) {
-    fetch('/Men/AddToCart', {
+﻿
+function addToCart(productId) {
+    fetch('/Cart/AddToCart', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -8,12 +9,40 @@
     }).then(response => {
         if (response.ok) {
             alert('Product added to cart!');
+        } else {
+            response.text().then(text => {
+                alert('Please Login to avail this feature');
+            });
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while adding the product to the cart.');
+    });
+}
+function deleteFromCart(cartItemId) {
+    fetch(`/Cart/DeleteFromCart/${cartItemId}`, {
+        method: 'DELETE'
+    }).then(response => {
+        if (response.ok) {
+            alert('Product removed from cart!');
+            location.reload();
+        }
+    });
+}
+
+function deleteFromWishlist(wishlistItemId) {
+    fetch(`/Cart/DeleteFromWishlist/${wishlistItemId}`, {
+        method: 'DELETE'
+    }).then(response => {
+        if (response.ok) {
+            alert('Product removed from wishlist!');
+            location.reload();
         }
     });
 }
 
 function toggleWishlist(productId) {
-    fetch('/Men/AddToWishlist', {
+    fetch('/Cart/AddToWishlist', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -30,7 +59,14 @@ function toggleWishlist(productId) {
                 icon.style.color = 'black';
             }
             alert('Product added to wishlist!');
+        } else {
+            response.text().then(text => {
+                alert('Please Login to avail this feature');
+            });
         }
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while adding the product to the cart.');
     });
 }
 

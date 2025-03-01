@@ -1,0 +1,19 @@
+﻿@model IEnumerable<CartItem>
+
+<h2>Your Cart</h2>
+<div class="cart">
+    @foreach (var item in Model)
+    {
+        <div class="cart-item">
+            <img src="@item.Product.ImageUrl" alt="@item.Product.Name" />
+            <h3>@item.Product.Name</h3>
+            <p>@item.Product.Description</p>
+            <p>@item.Product.Price</p>
+            <button onclick="deleteFromCart(@item.CartItemID)">Remove</button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/scripts.js"></script>
+}

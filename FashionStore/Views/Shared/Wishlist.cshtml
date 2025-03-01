@@ -1,0 +1,19 @@
+﻿@model IEnumerable<WishlistItem>
+
+<h2>Your Wishlist</h2>
+<div class="wishlist">
+    @foreach (var item in Model)
+    {
+        <div class="wishlist-item">
+            <img src="@item.Product.ImageUrl" alt="@item.Product.Name" />
+            <h3>@item.Product.Name</h3>
+            <p>@item.Product.Description</p>
+            <p>@item.Product.Price</p>
+            <button onclick="deleteFromWishlist(@item.WishlistItemID)">Remove</button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/scripts.js"></script>
+}
