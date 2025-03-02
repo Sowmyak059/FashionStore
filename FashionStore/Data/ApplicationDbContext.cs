@@ -22,5 +22,6 @@ namespace FashionStore.Data
         public DbSet<Review> Review { get; set; } = default!;
         public DbSet<CartItem> CartItems { get; set; } = default!;
         public DbSet<WishlistItem> WishlistItems { get; set; } = default!;
+        public DbSet<Offer> Offers { get; set; } = default!;
     }
 }

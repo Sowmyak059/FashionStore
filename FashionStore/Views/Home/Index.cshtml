@@ -1,8 +1,60 @@
-﻿@{
+﻿@model IEnumerable<FashionStore.Models.Offer>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="offerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-indicators">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")"></button>
+        }
+    </div>
+    <div class="carousel-inner">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var offer = Model.ElementAt(i);
+            <div class="carousel-item @(i == 0 ? "active" : "")">
+                <img src="@offer.ImageUrl" class="carousel-image" alt="@offer.Title">
+            </div>
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#offerCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#offerCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
+
+<div class="website-description">
+    <br><br><br><br>
+    <h2>About Us</h2>
+    <p>ONLINE SHOPPING MADE EASY AT MYNTRA</p>
+</div>
+
+<div class="contact-info">
+    <br><br>
+    <h2>Contact Us</h2>
+    <p>
+        Follow us on:
+        <a href="https://www.facebook.com">Facebook</a>,
+        <a href="https://www.instagram.com">Instagram</a>
+    </p>
+    <p>Registered Office Address:</p>
+    <address>
+        Buildings Alyssa, Begonia and Clover situated in Embassy Tech Village,<br>
+        Outer Ring Road, Devarabeesanahalli Village,<br>
+    </address>
+</div>
+
+<style>
+    .carousel-item img {
+        width: 100%; /* Ensure it spans the full width of the carousel */
+        height: 500px; /* Set a fixed height */
+        object-fit: cover; /* Crop images to fit the container without stretching */
+    }
+</style>
