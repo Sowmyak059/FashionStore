@@ -1,0 +1,143 @@
+﻿@model IEnumerable<CartItem>
+
+<h2 class="text-center my-4">Your Cart</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 cart-item d-flex align-items-center p-3 shadow-sm mb-3 rounded">
+                <!-- Product Image -->
+                <div class="cart-item-img">
+                    <img src="@item.Product.ImageUrl" alt="@item.Product.Name" class="img-fluid">
+                </div>
+
+                <!-- Product Details -->
+                <div class="cart-item-details flex-grow-1 px-3">
+                    <h5 class="mb-1">@item.Product.Name</h5>
+                    <p class="text-muted small">@item.Product.Description</p>
+                </div>
+
+                <!-- Quantity Controls -->
+                <div class="cart-item-quantity">
+                    <button class="btn btn-secondary btn-sm" onclick="updateQuantity(@item.CartItemID, -1)" id="decrement-@item.CartItemID" @(item.Quantity == 1 ? "disabled" : "")>-</button>
+                    <span id="quantity-@item.CartItemID">@item.Quantity</span>
+                    <button class="btn btn-secondary btn-sm" onclick="updateQuantity(@item.CartItemID, 1)">+</button>
+                </div>
+
+                <!-- Price Info -->
+                <div class="cart-item-price text-end">
+                    <p class="fw-bold" id="price-@item.CartItemID" data-unit-price="@item.Product.Price">@item.Product.Price * @item.Quantity kr</p>
+                </div>
+
+                <!-- Remove Button -->
+                <div class="cart-item-remove">
+                    <button class="btn btn-danger btn-sm" onclick="deleteFromCart(@item.CartItemID)">Remove</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Total Price -->
+    <div class="text-end mt-4">
+        <h4>Total: <span id="totalPrice">0</span> kr</h4>
+    </div>
+
+    <!-- Checkout Button -->
+    <div class="text-center mt-4">
+        <a href="/Cart/Checkout" class="btn btn-success btn-lg px-5" id="checkout-btn">Proceed to Checkout</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/scripts.js"></script>
+    <script>
+        function updateQuantity(cartItemId, change) {
+            let quantityElem = document.getElementById(`quantity-${cartItemId}`);
+            let priceElem = document.getElementById(`price-${cartItemId}`);
+            let decrementBtn = document.getElementById(`decrement-${cartItemId}`);
+
+            let quantity = parseInt(quantityElem.innerText) + change;
+            if (quantity < 1) return;
+
+            // Update quantity in the UI
+            quantityElem.innerText = quantity;
+
+            // Enable/disable decrement button based on quantity
+            decrementBtn.disabled = quantity === 1;
+
+            // Fetch the original unit price from a data attribute
+            let unitPrice = parseFloat(priceElem.getAttribute('data-unit-price'));
+            let newPrice = unitPrice * quantity;
+            priceElem.innerText = newPrice.toFixed(2) + " kr";
+
+            // Make an AJAX call to update the quantity in the database
+            fetch('/Cart/UpdateQuantity', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ CartItemId: cartItemId, Quantity: quantity })
+            }).then(response => {
+                if (!response.ok) {
+                    console.error('Failed to update quantity');
+                }
+            });
+
+            updateTotalPrice();
+        }
+
+        function deleteFromCart(cartItemId) {
+            document.querySelector(`[id="quantity-${cartItemId}"]`).parentElement.parentElement.remove();
+            updateTotalPrice();
+        }
+
+        function updateTotalPrice() {
+            let totalPriceElem = document.getElementById("totalPrice");
+            let checkoutBtn = document.getElementById("checkout-btn");
+
+            let totalPrice = 0;
+            document.querySelectorAll("[id^='price-']").forEach(priceElem => {
+                let quantityElem = document.getElementById(`quantity-${priceElem.id.split('-')[1]}`);
+                let quantity = parseInt(quantityElem.innerText);
+                let unitPrice = parseFloat(priceElem.getAttribute('data-unit-price'));
+                totalPrice += unitPrice * quantity;
+            });
+
+            totalPriceElem.innerText = totalPrice.toFixed(2) + " kr";
+
+            // Disable checkout if cart is empty
+            if (totalPrice === 0) {
+                checkoutBtn.disabled = true;
+                document.querySelector(".container").innerHTML = '<p class="text-center text-muted">Your cart is empty.</p>';
+            }
+        }
+
+        // Call updateTotalPrice on page load to initialize the total price
+        updateTotalPrice();
+    </script>
+}
+
+<style>
+    .cart-item {
+        background: #fff;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .cart-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+    .cart-item-img img {
+        width: 60px; /* Adjust the width */
+        height: 60px; /* Adjust the height */
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .remove-icon {
+        width: 16px;
+        height: 16px;
+    }
+</style>

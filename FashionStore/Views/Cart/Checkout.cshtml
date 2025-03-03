@@ -1,0 +1,33 @@
+﻿@model FashionStore.Models.PaymentViewModel
+
+<h2 class="text-center my-4">Payment Details</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form method="post" action="/Cart/ProcessPayment">
+                <!-- Dummy payment details form -->
+                <div class="mb-3">
+                    <label for="cardNumber" class="form-label">Card Number</label>
+                    <input type="text" class="form-control" id="cardNumber" name="CardNumber" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="mb-3">
+                    <label for="expiryDate" class="form-label">Expiry Date</label>
+                    <input type="text" class="form-control" id="expiryDate" name="ExpiryDate" placeholder="MM/YY">
+                </div>
+                <div class="mb-3">
+                    <label for="cvv" class="form-label">CVV</label>
+                    <input type="text" class="form-control" id="cvv" name="CVV" placeholder="123">
+                </div>
+                <button type="submit" class="btn btn-primary">Pay Now</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>
+        alert("@TempData["ErrorMessage"]");
+    </script>
+}
