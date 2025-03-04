@@ -88,8 +88,21 @@
         }
 
         function deleteFromCart(cartItemId) {
-            document.querySelector(`[id="quantity-${cartItemId}"]`).parentElement.parentElement.remove();
-            updateTotalPrice();
+            // Make an AJAX call to delete the item from the database
+            fetch(`/Cart/DeleteFromCart/${cartItemId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // Remove the item from the DOM
+                    document.querySelector(`[id="quantity-${cartItemId}"]`).parentElement.parentElement.remove();
+                    updateTotalPrice();
+                } else {
+                    console.error('Failed to delete item');
+                }
+            });
         }
 
         function updateTotalPrice() {

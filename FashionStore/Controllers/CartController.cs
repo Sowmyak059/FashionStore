@@ -122,20 +122,57 @@ namespace FashionStore.Controllers
             return View(paymentViewModel);
         }
 
-        [HttpPost]        
-        public IActionResult ProcessPayment(PaymentViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> ProcessPayment(PaymentViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var userId = _userManager.GetUserId(User);
+                var cartItems = await _context.CartItems.Include(c => c.Product) .Where(c => c.UserId == userId) .ToListAsync();
+
+                var order = new Order
+                {
+                    UserId = userId,
+                    OrderDate = DateTime.Now,
+                    TotalPrice = cartItems.Sum(c => c.Product.Price * c.Quantity),
+                    OrderItems = cartItems.Select(c => new OrderItem
+                    {
+                        ProductID = c.ProductID,
+                        Quantity = c.Quantity,
+                        Price = c.Product.Price
+                    }).ToList()
+                };
+
+                _context.Orders.Add(order);
+                _context.CartItems.RemoveRange(cartItems);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction("PaymentSuccess");
             }
-            TempData["ErrorMessage"] = "Invalid payment details. Please try again.";
+
+            TempData["ErrorMessage"] = "Invalid payment infromation. Please try again.";
             return View("Checkout", model);
         }
 
         public IActionResult PaymentSuccess()
         {
             return View();
+        }
+        public async Task<IActionResult> OrderHistory()
+        {
+            var userId = _userManager.GetUserId(User);
+            var orders = await _context.Orders.Where(o => o.UserId == userId).ToListAsync();
+            return View(orders);
+        }
+
+        public async Task<IActionResult> OrderDetails(int id)
+        {
+            var order = await _context.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Product).FirstOrDefaultAsync(o => o.OrderID == id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            return View(order);
         }
     }
 

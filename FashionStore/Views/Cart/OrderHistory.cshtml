@@ -1,0 +1,29 @@
+﻿@model IEnumerable<FashionStore.Models.Order>
+
+<h2 class="text-center my-4">Order History</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Order Date</th>
+                        <th>Total Price</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                            <td>@order.TotalPrice kr</td>
+                            <td><a href="/Cart/OrderDetails/@order.OrderID" class="btn btn-info btn-sm">View Details</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+﻿@model FashionStore.Models.Order
+
+<h2 class="text-center my-4">Order Details</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4>Order Date: @Model.OrderDate.ToString("yyyy-MM-dd")</h4>
+            <h4>Total Price: @Model.TotalPrice kr</h4>
+            <h4>Status: Delivered</h4>
+            <table class="table table-striped mt-4">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderItems)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@item.Product.ImageUrl" alt="@item.Product.Name" style="width: 60px; height: 60px; object-fit: cover;">
+                                @item.Product.Name
+                            </td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price kr</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <h4>Order Timeline</h4>
+            <ul>
+                <li>Order placed: @Model.OrderDate.ToString("yyyy-MM-dd")</li>
+                <li>Order shipped: @Model.OrderDate.AddDays(1).ToString("yyyy-MM-dd")</li>
+                <li>Order in transit: @Model.OrderDate.AddDays(2).ToString("yyyy-MM-dd")</li>
+                <li>Ready to pickup: @Model.OrderDate.AddDays(3).ToString("yyyy-MM-dd")</li>
+                <li>Delivered: @Model.OrderDate.AddDays(4).ToString("yyyy-MM-dd")</li>
+            </ul>
+        </div>
+    </div>
+</div>
