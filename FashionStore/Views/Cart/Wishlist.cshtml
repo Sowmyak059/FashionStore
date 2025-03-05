@@ -1,19 +1,62 @@
 ﻿@model IEnumerable<WishlistItem>
 
-<h2>Your Wishlist</h2>
-<div class="wishlist">
-    @foreach (var item in Model)
-    {
-        <div class="wishlist-item">
-            <img src="@item.Product.ImageUrl" alt="@item.Product.Name" />
-            <h3>@item.Product.Name</h3>
-            <p>@item.Product.Description</p>
-            <p>@item.Product.Price</p>
-            <button onclick="deleteFromWishlist(@item.WishlistItemID)">Remove</button>
-        </div>
-    }
+<h2 class="text-center my-4">Your Wishlist</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 wishlist-item d-flex align-items-center p-3 shadow-sm mb-3 rounded">
+                <!-- Product Image -->
+                <div class="wishlist-item-img">
+                    <img src="@item.Product.ImageUrl" alt="@item.Product.Name" class="img-fluid">
+                </div>
+
+                <!-- Product Details -->
+                <div class="wishlist-item-details flex-grow-1 px-3">
+                    <h5 class="mb-1">@item.Product.Name</h5>
+                    <p class="text-muted small">@item.Product.Description</p>
+                </div>
+
+                <!-- Price Info -->
+                <div class="wishlist-item-price text-end ms-3">
+                    <p class="fw-bold text-primary">@item.Product.Price kr</p>
+                </div>
+
+                <!-- Remove Button -->
+                <div class="wishlist-item-remove ms-3">
+                    <button class="btn btn-danger btn-sm" onclick="deleteFromWishlist(@item.WishlistItemID)">Remove</button>
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
 @section Scripts {
     <script src="~/js/scripts.js"></script>
 }
+
+<style>
+    .wishlist-item {
+        background: #fff;
+        border-radius: 10px;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .wishlist-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+    .wishlist-item-img img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .wishlist-item-price p {
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>

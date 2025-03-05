@@ -1,0 +1,89 @@
+﻿@model FashionStore.Models.Product
+
+@{
+    ViewData["Title"] = Model.Name;
+    var categoryHeaders = ViewBag.CategoryHeaders as IEnumerable<FashionStore.Models.CategoryHeader>;
+}
+
+<div class="men-page">
+    <div class="content">
+        <!-- Product Section -->
+        <div class="product-section">
+            <div class="product-details-container d-flex flex-wrap align-items-start p-4 shadow-sm rounded">
+                <div class="product-image me-4">
+                    <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded">
+                </div>
+
+                <div class="product-info flex-grow-1">
+                    <h1 class="mb-3">@Model.Name</h1>
+                    <p class="product-description text-muted">@Model.Description</p>
+                    <p class="product-price">Price: <strong>$@Model.Price</strong></p>
+
+                    <div class="product-actions mt-4">
+                        <button class="btn btn-success me-2" onclick="addToCart(@Model.ProductID)">Add to Cart</button>
+                        <button class="btn btn-outline-danger" onclick="toggleWishlist(@Model.ProductID)" id="wishlist-btn-@Model.ProductID">
+                            <span id="wishlist-icon-@Model.ProductID" class="wishlist-icon">&#x2661;</span> Wishlist
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Reviews and Ratings Section -->
+        <div class="reviews-section mt-5">
+            @await Html.PartialAsync("_ReviewsPartial", Model.Reviews)
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadReviews(@Model.ProductID);
+        });
+    </script>
+}
+
+<style>
+    .product-details-container {
+        background: #fff;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+        .product-details-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .product-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .product-info h1 {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    .product-description {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .product-price {
+        font-size: 1.2rem;
+        color: #333;
+    }
+
+    .product-actions .btn {
+        font-size: 1rem;
+        padding: 0.5rem 1.5rem;
+    }
+
+    .wishlist-icon {
+        font-size: 1.2rem;
+        vertical-align: middle;
+    }
+</style>

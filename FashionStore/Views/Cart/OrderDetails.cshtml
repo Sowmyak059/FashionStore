@@ -5,11 +5,37 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h4>Order Date: @Model.OrderDate.ToString("yyyy-MM-dd")</h4>
-            <h4>Total Price: @Model.TotalPrice kr</h4>
-            <h4>Status: Delivered</h4>
-            <table class="table table-striped mt-4">
-                <thead>
+            <div class="card shadow-lg p-4 mb-4">
+                <h4><strong>Order Date:</strong> @Model.OrderDate.ToString("yyyy-MM-dd")</h4>
+                <h4><strong>Total Price:</strong> @Model.TotalPrice kr</h4>
+                <h4><strong>Status:</strong> <span class="badge bg-success">Delivered</span></h4>
+            </div>
+
+            <h4 class="mt-5">Tracking Info</h4>
+            <div class="progress mt-3" style="height: 8px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            <ul class="timeline list-unstyled mt-4">
+                <li class="position-relative mb-3">
+                    <span class="badge bg-primary">1</span> Order placed: @Model.OrderDate.ToString("yyyy-MM-dd")
+                </li>
+                <li class="position-relative mb-3">
+                    <span class="badge bg-secondary">2</span> Order shipped: @Model.OrderDate.AddDays(1).ToString("yyyy-MM-dd")
+                </li>
+                <li class="position-relative mb-3">
+                    <span class="badge bg-warning">3</span> Order in transit: @Model.OrderDate.AddDays(2).ToString("yyyy-MM-dd")
+                </li>
+                <li class="position-relative mb-3">
+                    <span class="badge bg-info">4</span> Ready to pickup: @Model.OrderDate.AddDays(3).ToString("yyyy-MM-dd")
+                </li>
+                <li class="position-relative mb-3">
+                    <span class="badge bg-success">5</span> Delivered: @Model.OrderDate.AddDays(4).ToString("yyyy-MM-dd")
+                </li>
+            </ul>
+
+            <table class="table table-hover table-bordered mt-4 shadow-sm">
+                <thead class="table-dark">
                     <tr>
                         <th>Product</th>
                         <th>Quantity</th>
@@ -21,7 +47,7 @@
                     {
                         <tr>
                             <td>
-                                <img src="@item.Product.ImageUrl" alt="@item.Product.Name" style="width: 60px; height: 60px; object-fit: cover;">
+                                <img src="@item.Product.ImageUrl" alt="@item.Product.Name" class="rounded shadow" style="width: 60px; height: 60px; object-fit: cover;">
                                 @item.Product.Name
                             </td>
                             <td>@item.Quantity</td>
@@ -30,14 +56,22 @@
                     }
                 </tbody>
             </table>
-            <h4>Order Timeline</h4>
-            <ul>
-                <li>Order placed: @Model.OrderDate.ToString("yyyy-MM-dd")</li>
-                <li>Order shipped: @Model.OrderDate.AddDays(1).ToString("yyyy-MM-dd")</li>
-                <li>Order in transit: @Model.OrderDate.AddDays(2).ToString("yyyy-MM-dd")</li>
-                <li>Ready to pickup: @Model.OrderDate.AddDays(3).ToString("yyyy-MM-dd")</li>
-                <li>Delivered: @Model.OrderDate.AddDays(4).ToString("yyyy-MM-dd")</li>
-            </ul>
         </div>
     </div>
 </div>
+
+<style>
+    .timeline li::before {
+        content: '\2022';
+        font-size: 1.5rem;
+        color: #007bff;
+        position: absolute;
+        left: -20px;
+        top: 5px;
+    }
+
+    .badge {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+</style>

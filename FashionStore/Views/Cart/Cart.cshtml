@@ -19,19 +19,19 @@
                 </div>
 
                 <!-- Quantity Controls -->
-                <div class="cart-item-quantity">
-                    <button class="btn btn-secondary btn-sm" onclick="updateQuantity(@item.CartItemID, -1)" id="decrement-@item.CartItemID" @(item.Quantity == 1 ? "disabled" : "")>-</button>
-                    <span id="quantity-@item.CartItemID">@item.Quantity</span>
-                    <button class="btn btn-secondary btn-sm" onclick="updateQuantity(@item.CartItemID, 1)">+</button>
+                <div class="cart-item-quantity d-flex align-items-center">
+                    <button class="btn btn-outline-secondary btn-sm px-3 me-2" onclick="updateQuantity(@item.CartItemID, -1)" id="decrement-@item.CartItemID" @(item.Quantity == 1 ? "disabled" : "")>-</button>
+                    <span id="quantity-@item.CartItemID" class="fw-bold mx-2">@item.Quantity</span>
+                    <button class="btn btn-outline-secondary btn-sm px-3" onclick="updateQuantity(@item.CartItemID, 1)">+</button>
                 </div>
 
                 <!-- Price Info -->
-                <div class="cart-item-price text-end">
-                    <p class="fw-bold" id="price-@item.CartItemID" data-unit-price="@item.Product.Price">@item.Product.Price * @item.Quantity kr</p>
+                <div class="cart-item-price text-end ms-3">
+                    <p class="fw-bold text-primary" id="price-@item.CartItemID" data-unit-price="@item.Product.Price">@(@item.Product.Price * item.Quantity) kr</p>
                 </div>
 
                 <!-- Remove Button -->
-                <div class="cart-item-remove">
+                <div class="cart-item-remove ms-3">
                     <button class="btn btn-danger btn-sm" onclick="deleteFromCart(@item.CartItemID)">Remove</button>
                 </div>
             </div>
@@ -40,7 +40,7 @@
 
     <!-- Total Price -->
     <div class="text-end mt-4">
-        <h4>Total: <span id="totalPrice">0</span> kr</h4>
+        <h4>Total: <span id="totalPrice" class="fw-bold text-success">0</span> kr</h4>
     </div>
 
     <!-- Checkout Button -->
@@ -60,44 +60,31 @@
             let quantity = parseInt(quantityElem.innerText) + change;
             if (quantity < 1) return;
 
-            // Update quantity in the UI
             quantityElem.innerText = quantity;
-
-            // Enable/disable decrement button based on quantity
             decrementBtn.disabled = quantity === 1;
 
-            // Fetch the original unit price from a data attribute
             let unitPrice = parseFloat(priceElem.getAttribute('data-unit-price'));
             let newPrice = unitPrice * quantity;
             priceElem.innerText = newPrice.toFixed(2) + " kr";
 
-            // Make an AJAX call to update the quantity in the database
             fetch('/Cart/UpdateQuantity', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ CartItemId: cartItemId, Quantity: quantity })
             }).then(response => {
-                if (!response.ok) {
-                    console.error('Failed to update quantity');
-                }
+                if (!response.ok) console.error('Failed to update quantity');
             });
 
             updateTotalPrice();
         }
 
         function deleteFromCart(cartItemId) {
-            // Make an AJAX call to delete the item from the database
             fetch(`/Cart/DeleteFromCart/${cartItemId}`, {
                 method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: {'Content-Type': 'application/json'}
             }).then(response => {
                 if (response.ok) {
-                    // Remove the item from the DOM
-                    document.querySelector(`[id="quantity-${cartItemId}"]`).parentElement.parentElement.remove();
+                    document.getElementById(`quantity-${cartItemId}`).closest('.cart-item').remove();
                     updateTotalPrice();
                 } else {
                     console.error('Failed to delete item');
@@ -108,25 +95,19 @@
         function updateTotalPrice() {
             let totalPriceElem = document.getElementById("totalPrice");
             let checkoutBtn = document.getElementById("checkout-btn");
-
             let totalPrice = 0;
+
             document.querySelectorAll("[id^='price-']").forEach(priceElem => {
+                let unitPrice = parseFloat(priceElem.getAttribute('data-unit-price'));
                 let quantityElem = document.getElementById(`quantity-${priceElem.id.split('-')[1]}`);
                 let quantity = parseInt(quantityElem.innerText);
-                let unitPrice = parseFloat(priceElem.getAttribute('data-unit-price'));
                 totalPrice += unitPrice * quantity;
             });
 
             totalPriceElem.innerText = totalPrice.toFixed(2) + " kr";
-
-            // Disable checkout if cart is empty
-            if (totalPrice === 0) {
-                checkoutBtn.disabled = true;
-                document.querySelector(".container").innerHTML = '<p class="text-center text-muted">Your cart is empty.</p>';
-            }
+            checkoutBtn.disabled = totalPrice === 0;
         }
 
-        // Call updateTotalPrice on page load to initialize the total price
         updateTotalPrice();
     </script>
 }
@@ -134,23 +115,29 @@
 <style>
     .cart-item {
         background: #fff;
+        border-radius: 10px;
         transition: transform 0.2s ease-in-out;
     }
 
         .cart-item:hover {
             transform: scale(1.02);
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
         }
 
     .cart-item-img img {
-        width: 60px; /* Adjust the width */
-        height: 60px; /* Adjust the height */
+        width: 80px;
+        height: 80px;
         object-fit: cover;
-        border-radius: 8px;
+        border-radius: 10px;
     }
 
-    .remove-icon {
-        width: 16px;
-        height: 16px;
+    .cart-item-quantity button {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .cart-item-price p {
+        font-size: 18px;
+        font-weight: bold;
     }
 </style>

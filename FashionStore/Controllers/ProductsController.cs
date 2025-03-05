@@ -166,5 +166,28 @@ namespace FashionStore.Controllers
         {
             return _context.Product.Any(e => e.ProductID == id);
         }
+        public async Task<IActionResult> Search(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return View(new List<Product>());
+            }
+
+            var products = await _context.Product
+                .Where(p => p.Name.Contains(query) || p.Description.Contains(query))
+                .ToListAsync();
+
+            return View(products);
+        }
+
+        public async Task<IActionResult> SearchedItemDetails(int id)
+        {
+            var product = await _context.Product.Include(p => p.Reviews).FirstOrDefaultAsync(p => p.ProductID == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
     }
 }

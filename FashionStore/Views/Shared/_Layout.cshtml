@@ -20,22 +20,24 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Men" asp-action="Index">Men</a>
+                            <a class="nav-link" asp-area="" asp-controller="Men" asp-action="Index">Men</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Women" asp-action="Index">Women</a>
+                            <a class="nav-link" asp-area="" asp-controller="Women" asp-action="Index">Women</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Kids" asp-action="Index">Kids</a>
+                            <a class="nav-link" asp-area="" asp-controller="Kids" asp-action="Index">Kids</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home & Living" asp-action="Index">Home & Living</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home & Living" asp-action="Index">Home & Living</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Beauty" asp-action="Index">Beauty</a>
+                            <a class="nav-link" asp-area="" asp-controller="Beauty" asp-action="Index">Beauty</a>
                         </li>
                         <li class="nav-item">
-                            <input type="text" placeholder="Search...">
+                            <form method="get" action="/Products/Search">
+                                <input type="text" name="query" placeholder="Search..." class="form-control">
+                            </form>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -60,3 +62,49 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<style>
+    /* Navbar Styling */
+    .navbar {
+        background: linear-gradient(to right, #f8f9fa, #ffffff); /* Subtle gradient */
+        padding: 15px 20px;
+        border-bottom: 2px solid #ddd;
+    }
+
+    /* Navbar Links */
+    .navbar-nav .nav-link {
+        font-size: 18px;
+        font-weight: 500;
+        color: #333 !important;
+        transition: color 0.3s ease-in-out, transform 0.2s;
+        padding: 10px 15px;
+    }
+
+        .navbar-nav .nav-link:hover {
+            color: #ff4081 !important; /* Fashionable pink */
+            transform: translateY(-2px);
+        }
+
+    /* Active Link */
+    .navbar-nav .nav-item.active .nav-link {
+        color: #ff4081 !important;
+        font-weight: bold;
+        border-bottom: 3px solid #ff4081;
+    }
+
+    /* Search Bar */
+    .navbar-nav input[type="text"] {
+        padding: 8px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        width: 200px;
+        transition: width 0.3s ease-in-out;
+    }
+
+        .navbar-nav input[type="text"]:focus {
+            width: 250px;
+            border-color: #ff4081;
+            outline: none;
+        }
+
+</style>
