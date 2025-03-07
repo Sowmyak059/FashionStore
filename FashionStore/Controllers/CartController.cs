@@ -174,6 +174,23 @@ namespace FashionStore.Controllers
             }
             return View(order);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCartCount()
+        {
+            var userId = _userManager.GetUserId(User);
+            var cartCount = await _context.CartItems.Where(c => c.UserId == userId).CountAsync();
+            return Json(cartCount);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetWishlistCount()
+        {
+            var userId = _userManager.GetUserId(User);
+            var wishlistCount = await _context.WishlistItems.Where(w => w.UserId == userId).CountAsync();
+            return Json(wishlistCount);
+        }
+
     }
 
     public class AddToCartRequest
