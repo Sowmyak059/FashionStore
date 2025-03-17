@@ -7,7 +7,7 @@
             <a href="@Url.Action("ProductDetails", "Men", new { productId = product.ProductID })">
                 <img src="@product.ImageUrl" alt="@product.Name" />
                 <h3>@product.Name</h3>
-                <p>@product.Description</p>
+                <p class="product-description">@product.Description</p>
                 <p class="price">$@product.Price</p>
             </a>
             <div class="product-actions">
@@ -38,6 +38,10 @@
         text-align: center;
         padding: 15px;
         transition: transform 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 420px;
     }
 
         .product:hover {
@@ -58,67 +62,82 @@
             font-weight: bold;
         }
 
-        .product p {
-            font-size: 14px;
-            color: #666;
-            margin: 5px 0;
-        }
+    .product-description {
+        font-size: 14px;
+        color: #666;
+        margin: 5px 0;
+        min-height: 40px;
+    }
 
-        .product .price {
-            font-size: 16px;
-            color: #e74c3c;
-            font-weight: bold;
-        }
+    .product .price {
+        font-size: 16px;
+        color: #e74c3c;
+        font-weight: bold;
+    }
 
     .product-actions {
-        margin-top: 10px;
+        margin-top: auto;
         display: flex;
-        justify-content: center;
-        gap: 10px;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 10px; /* Prevents hover cutting issue */
     }
 
         .product-actions button {
             border: none;
-            padding: 8px 12px;
+            padding: 6px 10px; /* Reduced size */
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
+            transition: all 0.3s ease-in-out;
             font-weight: bold;
             display: flex;
             align-items: center;
             gap: 5px;
-            font-size: 14px;
+            font-size: 13px; /* Reduced font size */
+            width: 95%; /* Maintains uniform width */
         }
 
     /* Add to Cart Button Styling */
     .add-to-cart {
-        background: #fff;
+        background: #3498db;
+        color: #fff;
         border: 2px solid #3498db;
-        color: #3498db;
+        transform: scale(1);
     }
 
         .add-to-cart:hover {
-            background: #3498db;
-            color: #fff;
-            transform: scale(1.1);
+            background: #5498db;
+            transform: scale(1.05);
+            border: 2px solid #5498db;
         }
 
     /* Wishlist Button Styling */
     .wishlist-btn {
-        background: #fff;
+        background: #e74c3c;
+        color: #fff;
         border: 2px solid #e74c3c;
-        color: #e74c3c;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Center the icon and text */
+        gap: 6px; /* Space between icon and text */
+        padding: 8px 12px;
+        font-weight: bold;
+        font-size: 14px;
+        width: 100%; /* Ensures uniform button size */
+        border-radius: 5px;
+        transition: background 0.3s, transform 0.2s;
     }
 
         .wishlist-btn:hover {
-            background: #e74c3c;
-            color: #fff;
-            transform: scale(1.1);
+            background: #fe9094;
+            transform: scale(1.05);
+            border: 2px solid #fe9094;
         }
 
     /* Icon Styling */
     .wishlist-icon,
     .cart-icon {
-        font-size: 18px;
+        font-size: 16px; /* Adjusted icon size */
     }
 </style>

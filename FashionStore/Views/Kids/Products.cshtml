@@ -1,0 +1,10 @@
+﻿@model FashionStore.ViewModels.ProductsViewModel
+
+<div class="men-page">
+    @await Html.PartialAsync("_CategoriesPartial", Model.CategoryHeaders)
+    @await Html.PartialAsync("_ProductsPartial", Model.Products)
+</div>
+
+@section Scripts {
+    <script src="~/js/scripts.js"></script>
+}

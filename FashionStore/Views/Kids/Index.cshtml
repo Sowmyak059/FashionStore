@@ -1,0 +1,14 @@
+﻿@model FashionStore.Models.MainCategory
+
+@{
+    ViewData["Title"] = "Kids";
+}
+
+<div class="men-page">
+    @await Html.PartialAsync("_CategoriesPartial", Model.CategoryHeaders)
+    @await Html.PartialAsync("_ProductsPartial", Model.CategoryHeaders.SelectMany(ch => ch.Categories).SelectMany(c => c.Products))
+</div>
+
+@section Scripts {
+    <script src="~/js/scripts.js"></script>
+}
