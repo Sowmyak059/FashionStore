@@ -12,9 +12,11 @@ FashionStore is an e-commerce website designed to provide users with a seamless 
 
 ## Technologies Used
 
-- **Backend**: C#, Entity Framework
-- **Frontend**: HTML
-- **Database**: SQL
+- **Backend**: C#
+- **Frontend**: HTML, Razor Pages
+- **Framework**: ASP.NET Core MVC
+- **Database**: SQL Server
+- **ORM**: Entity Framework Core
 
 ## Installation
 
@@ -34,7 +36,21 @@ To set up the project locally:
 
 3. **Open the solution file**: Use Visual Studio to open `FashionStore.sln`.
 
-4. **Build and run the project**: Use Visual Studio's build and run features to start the application.
+4. **Set up**:
+   - Configure the database connection string in `appsettings.json`.
+   - Apply migrations using Entity Framework Core:
+     ```bash
+     Install-Package Microsoft.EntityFrameworkCore
+     Install-Package Microsoft.EntityFrameworkCore.SqlServer
+     Install-Package Microsoft.EntityFrameworkCore.Tools
+     Install-Package Microsoft.EntityFrameworkCore.Design
+     Install-Package Microsoft.AspNetCore.Mvc
+     Install-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+     add-migration AddMigrationName
+     update-database
+     ```
+
+5. **Build and run the project**: Use Visual Studio's build and run features to start the application.
 
 ## Contributing
 
@@ -42,7 +58,7 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 ## License
 
-This project is licensed under learning and development purpose.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
 ## Acknowledgements
 
@@ -51,3 +67,4 @@ This project is licensed under learning and development purpose.
 
 ---
 
+*Note: This README is based on the project structure and common practices for similar projects. Please update sections like Features, Technologies Used, and Installation Steps to accurately reflect the specifics of your project.*
