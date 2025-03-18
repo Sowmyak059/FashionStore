@@ -15,7 +15,7 @@ namespace FashionStore.Data
             base.OnModelCreating(builder); // Ensure Identity is properly configured
 
             builder.Entity<Product>().HasData(
-                         new Product { ProductID = 1037, CategoryID = 3, Name = "Mack JONNEY", Description = "Regular Fit Printed Blue Sweatshirt for Men", Price = 45, ImageUrl = "/images/sw_Mack JONNEY.jpg" },
+                    new Product { ProductID = 1037, CategoryID = 3, Name = "Mack JONNEY", Description = "Regular Fit Printed Blue Sweatshirt for Men", Price = 45, ImageUrl = "/images/sw_Mack JONNEY.jpg" },
                     new Product { ProductID = 1038, CategoryID = 3, Name = "Boldfit", Description = "Sweat Shirt Men's Jacket For Men Winter Wear Standard Length Thermal Insulation Sweatshirt", Price = 48, ImageUrl = "/images/sw_Boldfit.jpg" },
                     new Product { ProductID = 1039, CategoryID = 3, Name = "ADRO ", Description = "Cotton Design Printed Hooded Hoodies/Sweatshirts for Men & Women", Price = 51, ImageUrl = "/images/sw_ADRO.jpg" },
                     new Product { ProductID = 1040, CategoryID = 3, Name = "JVX", Description = "Men Sweatshirts || Sweatshirts for Men || Unisex Sweatshirts ||Hoodie for Men || Unisex Hoodie || Hoodie", Price = 56, ImageUrl = "/images/sw_JVX.jpg" },

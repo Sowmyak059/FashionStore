@@ -4,12 +4,12 @@
     <ul>
         @foreach (var categoryHeader in Model)
         {
-            <li>
+            <li class="category-header">
                 <h3>@categoryHeader.Name</h3>
-                <ul>
+                <ul class="subcategory-list">
                     @foreach (var category in categoryHeader.Categories)
                     {
-                        <li>
+                        <li class="subcategory-item">
                             <a href="@Url.Action("Products", new { categoryID = category.CategoryID })">
                                 @category.Name
                             </a>
@@ -24,32 +24,95 @@
 <style>
     .men-page {
         display: flex;
-        align-items: flex-start; /* Align categories & products on the same row */
-        gap: 20px; /* Space between categories and product details */
+        align-items: flex-start;
+        gap: 20px;
     }
 
     .categories {
-        width: 250px; /* Adjust as needed */
+        width: 250px;
         padding: 15px;
-        border-right: 2px solid #ccc;
-        background: #f8f8f8;
-        position: sticky; /* Keeps it fixed when scrolling */
+        border-right: 2px solid #ddd;
+        background: linear-gradient(180deg, #f8f8f8, #eaeaea);
+        position: sticky;
         top: 0;
-        margin-left:-80px;
+        margin-left: -80px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        transition: all 1s ease;
     }
+
+    .category-header {
+        list-style: none;
+        margin-bottom: 10px;
+    }
+
+        .category-header h3 {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            background: linear-gradient(135deg, #d1d1d1, #b8b8b8); /* Softer neutral gradient */
+            color: #333; /* Dark text for better readability */
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+            .category-header h3:hover {
+                background: #c5d1df;
+            }
+
+    .subcategory-list {
+        list-style: none;
+        padding-left: 12px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 1s ease-out;
+    }
+
+    .category-header:hover .subcategory-list {
+        max-height: 500px; /* Adjust if needed */
+    }
+
+    .subcategory-item {
+        padding: 5px;
+        transition: transform 1s ease-in-out;
+    }
+
+        .subcategory-item a {
+            text-decoration: none;
+            color: #4a4a4a; /* Darker gray for better contrast */
+            font-size: 16px;
+            display: block;
+            padding: 6px;
+            border-radius: 5px;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+            .subcategory-item a:hover {
+                background: #bbf9; /* Warm coral accent */
+                color: white;
+                transform: translateX(6px);
+            }
 
     .products {
         width: 75%;
         padding: 10px;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust the minmax value as needed */
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 20px;
     }
 
     .product {
         box-sizing: border-box;
-        border: 1px solid #ccc;
+        border: 1px solid #ddd;
         padding: 10px;
         text-align: center;
+        border-radius: 6px;
+        transition: transform 1s ease-in-out;
     }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
 </style>
