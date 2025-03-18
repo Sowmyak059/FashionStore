@@ -58,13 +58,10 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+This project is purely for learning purpose.
 
 ## Acknowledgements
 
 - **Inspiration**: This project was inspired by the need for a simple yet functional fashion e-commerce platform.
 - **Resources**: Special thanks to the open-source community for providing valuable resources and tools.
 
----
-
-*Note: This README is based on the project structure and common practices for similar projects. Please update sections like Features, Technologies Used, and Installation Steps to accurately reflect the specifics of your project.*
