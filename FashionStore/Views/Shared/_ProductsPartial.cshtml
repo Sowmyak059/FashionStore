@@ -8,7 +8,7 @@
                 <img src="@product.ImageUrl" alt="@product.Name" />
                 <h3>@product.Name</h3>
                 <p class="product-description">@product.Description</p>
-                <p class="price">$@product.Price</p>
+                <p class="price">@product.Price kr</p>
             </a>
             <div class="product-actions">
                 <button class="add-to-cart" onclick="addToCart(@product.ProductID)">
@@ -100,8 +100,8 @@
 
     /* Add to Cart Button Styling */
     .add-to-cart {
-        background: #000;
-        color: #fff;
+        background: linear-gradient(110deg, #b0b0b0, #ffe0e0);
+        color: #001;
         border: 2px solid #3498db;
         transform: scale(1);
     }

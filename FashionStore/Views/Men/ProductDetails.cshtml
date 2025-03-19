@@ -19,8 +19,22 @@
                 <div class="product-info">
                     <h1>@Model.Name</h1>
                     <p class="product-description">@Model.Description</p>
-                    <p class="product-price">Price: <strong>$@Model.Price</strong></p>
-
+                    <p class="product-price">Price: <strong>@Model.Price kr</strong></p>
+                    <div class="rating">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= Math.Round(Model.Reviews.Any() ? Model.Reviews.Average(r => r.Rating) : 0))
+                            {
+                                <span class="star gold">&#9733;</span>
+                            }
+                            else
+                            {
+                                <span class="star">&#9734;</span>
+                            }
+                        }
+                        <span class="rating-number">(@Model.Reviews.Count reviews)</span>
+                    </div>
+                    <br>
                     <div class="product-actions">
                         <button class="add-to-cart-btn" onclick="addToCart(@Model.ProductID)">Add to Cart</button>
                         <button class="wishlist-btn" onclick="toggleWishlist(@Model.ProductID)" id="wishlist-btn-@Model.ProductID">

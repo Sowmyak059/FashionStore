@@ -10,9 +10,11 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 navbar-custom">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FashionStore</a>
+                <a class="navbar-brand logo-zoom" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/fashionBoutique_1.png" alt="FashionStore Logo" height="55">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,9 +36,12 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Beauty" asp-action="Index">Beauty</a>
                         </li>
+                        <li class="nav-item"> <a class="nav-link" asp-area="" asp-controller="" asp-action=""></a> </li>
+                        <li class="nav-item"> <a class="nav-link" asp-area="" asp-controller="" asp-action=""></a> </li>
                         <li class="nav-item">
                             <form method="get" action="/Products/Search">
-                                <input type="text" name="query" placeholder="Search..." class="form-control">
+                                <input type="text" name="query" placeholder="Search..." class="form-control search-input">
+                                <span class="search-icon"><i class="fas fa-search"></i></span>
                             </form>
                         </li>
                     </ul>
@@ -67,7 +72,7 @@
 <style>
     /* --- Navbar Styling --- */
     .navbar-custom {
-        background: #ffffff;
+        background: linear-gradient(90deg, #ff7e5f, #feb47b);
         padding: 15px 20px;
         border-bottom: 3px solid #ddd;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -75,7 +80,7 @@
 
     /* --- Navbar Links Default Style (Black) --- */
     .navbar-nav .nav-link {
-        font-size: 18px;
+        font-size: 22px;
         font-weight: 500;
         padding: 10px 15px;
         color: #333 !important; /* Default text color */
@@ -85,25 +90,30 @@
 
     /* --- Hover Effect: Each Category Changes Color on Hover --- */
     .navbar-nav .nav-item:nth-child(1) .nav-link:hover {
-        color: #007bff !important;
+        color: #ffffff !important;
+        transform: scale(1.11);
     }
-    /* Men - Blue */
+    /* Men - White */
     .navbar-nav .nav-item:nth-child(2) .nav-link:hover {
-        color: #ff4081 !important;
+        color: #ffffff !important;
+        transform: scale(1.11);
     }
-    /* Women - Pink */
+    /* Women - White */
     .navbar-nav .nav-item:nth-child(3) .nav-link:hover {
-        color: #ff9800 !important;
+        color: #ffffff !important;
+        transform: scale(1.11);
     }
-    /* Kids - Orange */
+    /* Kids - White */
     .navbar-nav .nav-item:nth-child(4) .nav-link:hover {
-        color: #4caf50 !important;
+        color: #ffffff !important;
+        transform: scale(1.11);
     }
-    /* Home & Living - Green */
+    /* Home & Living - White */
     .navbar-nav .nav-item:nth-child(5) .nav-link:hover {
-        color: #9c27b0 !important;
+        color: #ffffff !important;
+        transform: scale(1.11);
     }
-    /* Beauty - Purple */
+    /* Beauty - White */
 
     /* --- Underline Effect on Hover --- */
     .navbar-nav .nav-link::after {
@@ -122,11 +132,14 @@
     .navbar-nav .nav-link:hover::after {
         width: 100%;
     }
-    /* Search Bar */
+
+    /* Center Search Bar */
     .navbar-search {
         position: relative;
         display: flex;
         align-items: center;
+        justify-content: center;
+        width: 100%;
     }
 
     .search-input {
@@ -145,6 +158,15 @@
         font-size: 16px;
         cursor: pointer;
     }
+
+    /* Logo Zoom Effect */
+    .logo-zoom img {
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .logo-zoom img:hover {
+            transform: scale(1.4);
+        }
 
     /* Cart & Other Icons */
     .cart-icon {
@@ -185,9 +207,6 @@
 
         .navbar-nav .nav-item a i:hover {
             color: #007bff;
+            transform: scale(1.11);
         }
-    </style>
-
-
-
-
+</style>

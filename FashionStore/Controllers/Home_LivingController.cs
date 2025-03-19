@@ -61,6 +61,7 @@ namespace e_CommerceStore.Controllers
                 .Include(p => p.Category)
                 .ThenInclude(c => c.CategoryHeader)
                 .ThenInclude(ch => ch.MainCategory)
+                .Include(p => p.Reviews)
                 .FirstOrDefault(p => p.ProductID == productId);
 
             if (product == null)

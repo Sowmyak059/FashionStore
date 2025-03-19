@@ -45,13 +45,13 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Wishlist">
                 <i class="bi bi-heart" style="font-size: 1.2rem;"></i>
-                <span id="wishlistCount" class="badge bg-primary">0</span>
+                <span id="wishlistCount" class="badge gradient-badge">0</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Cart">
                 <i class="bi bi-cart" style="font-size: 1.2rem;"></i>
-                <span id="cartCount" class="badge bg-primary">0</span>
+                <span id="cartCount" class="badge gradient-badge">0</span>
             </a>
         </li>
     }
@@ -81,3 +81,19 @@
 
     document.addEventListener("DOMContentLoaded", updateCounts);
 </script>
+
+<style>
+    .gradient-badge {
+        background: linear-gradient(225deg, #feb47b, #fff47b); /* Warm gradient */
+        color: black; /* Ensures text is visible */
+        border-radius: 12px; /* Rounded badge */
+        padding: 5px 10px; /* Adjust size */
+        font-size: 0.85rem;
+        font-weight: bold;
+        transition: background 0.5s ease-in-out;
+    }
+
+        .gradient-badge:hover {
+            background: linear-gradient(135deg, #ff9966, #ff5e62); /* Darker gradient on hover */
+        }
+</style>
