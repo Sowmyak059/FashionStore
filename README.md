@@ -13,7 +13,7 @@ FashionStore is an e-commerce website designed to provide users with a seamless 
 ## Technologies Used
 
 - **Backend**: C#
-- **Frontend**: HTML, Razor Pages
+- **Frontend**: HTML,CSS, Razor Pages, Bootstrap
 - **Framework**: ASP.NET Core MVC
 - **Database**: SQL Server
 - **ORM**: Entity Framework Core
