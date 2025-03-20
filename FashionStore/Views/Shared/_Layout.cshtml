@@ -22,10 +22,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Men" asp-action="Index">Men</a>
+                            <a class="nav-link" asp-area="" asp-controller="Women" asp-action="Index">Women</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Women" asp-action="Index">Women</a>
+                            <a class="nav-link" asp-area="" asp-controller="Men" asp-action="Index">Men</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Kids" asp-action="Index">Kids</a>
@@ -89,31 +89,11 @@
     }
 
     /* --- Hover Effect: Each Category Changes Color on Hover --- */
-    .navbar-nav .nav-item:nth-child(1) .nav-link:hover {
-        color: #ffffff !important;
-        transform: scale(1.11);
+    .navbar-nav .nav-item .nav-link:hover {
+        transform: scale(1.15);
+        /* color: #ffffff !important; */
     }
-    /* Men - White */
-    .navbar-nav .nav-item:nth-child(2) .nav-link:hover {
-        color: #ffffff !important;
-        transform: scale(1.11);
-    }
-    /* Women - White */
-    .navbar-nav .nav-item:nth-child(3) .nav-link:hover {
-        color: #ffffff !important;
-        transform: scale(1.11);
-    }
-    /* Kids - White */
-    .navbar-nav .nav-item:nth-child(4) .nav-link:hover {
-        color: #ffffff !important;
-        transform: scale(1.11);
-    }
-    /* Home & Living - White */
-    .navbar-nav .nav-item:nth-child(5) .nav-link:hover {
-        color: #ffffff !important;
-        transform: scale(1.11);
-    }
-    /* Beauty - White */
+
 
     /* --- Underline Effect on Hover --- */
     .navbar-nav .nav-link::after {
@@ -207,6 +187,6 @@
 
         .navbar-nav .nav-item a i:hover {
             color: #007bff;
-            transform: scale(1.11);
+            transform: scale(1.05);
         }
 </style>
