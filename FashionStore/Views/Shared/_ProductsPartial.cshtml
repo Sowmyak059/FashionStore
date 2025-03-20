@@ -7,7 +7,9 @@
             <a href="@Url.Action("ProductDetails", "Men", new { productId = product.ProductID })">
                 <img src="@product.ImageUrl" alt="@product.Name" />
                 <h3>@product.Name</h3>
-                <p class="product-description">@product.Description</p>
+                <p class="product-description">
+                    @(product.Description.Length > 50 ? product.Description.Substring(0, 50) + "..." : product.Description)
+                </p>
                 <p class="price">@product.Price kr</p>
             </a>
             <div class="product-actions">
