@@ -56,6 +56,10 @@ To set up the project locally:
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
 
+## Short Demo :
+
+To know more about how the website look like and the features please play the short demo file.
+
 ## License
 
 This project is purely for learning purpose.
